@@ -50,11 +50,11 @@ public class Board {
             }
         }
 
-        System.out.print("\n\n");
+        System.out.println("\n");
     }
 
     // Check the if there's a winning combination.
-    // Not exactly the best solution, but it will work.
+    // Not exactly the best solution to check for them, but it will work.
     public Boolean checkIfWon() {
         // Horizontal combinations.
         if ((cells[0] == cells[1] && cells[0] == cells[2]) && cells[0] != 0) {
