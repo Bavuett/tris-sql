@@ -8,24 +8,30 @@ public class Board {
     public void makeMove(char playerID) {
         int index = 1;
         char player = playerID;
+        Boolean errorMade = false;
 
         System.out.print("Giocatore " + player + ", tocca a te! \nDove vuoi fare la tua mossa? [1 - 9] ");
 
         try {
             index = input.nextInt(); 
+            errorMade = false;
         } catch (Exception e) {
-            System.out.println("Hai inserito un carattere non corretto. Riprova!\n");
+            System.out.println("Hai inserito un carattere non corretto. Riprova!");
+            errorMade = true;
             input.nextLine();
         }
 
         System.out.print("\n");
 
-        if (index > 0 && index < 10 && cells[index - 1] != 'X' && cells[index - 1] != 'O') {
+        if (index > 0 && index < 10 && cells[index - 1] != 'X' && cells[index - 1] != 'O' && errorMade != true) {
             cells[index - 1] = playerID;
 
             this.printBoard();
         } else {
-            System.out.println("Questo spazio è già occupato, o hai inserito un numero non permesso. Riprova!\n");
+            if (errorMade == false) {
+                System.out.println("Questo spazio è già occupato. Riprova!\n");
+            }
+
             this.makeMove(player);
         }
     }
@@ -47,12 +53,41 @@ public class Board {
         System.out.print("\n\n");
     }
 
+    // Check the if there's a winning combination.
+    // Not exactly the best solution, but it will work.
     public Boolean checkIfWon() {
-        if (cells[0] == cells[1] && cells[0] == cells[2] && cells[0] != 0) {
+        // Horizontal combinations.
+        if ((cells[0] == cells[1] && cells[0] == cells[2]) && cells[0] != 0) {
             return true;
         }
 
-        if (cells[3] == cells[4] && cells[3] == cells[5] && cells[3] != 0) {
+        if ((cells[3] == cells[4] && cells[3] == cells[5]) && cells[3] != 0) {
+            return true;
+        }
+        
+        if ((cells[6] == cells[7] && cells[6] == cells[8]) && cells[6] != 0) {
+            return true;
+        }
+
+        // Vertical combinations.
+        if ((cells[0] == cells[3] && cells[0] == cells[6]) && cells[0] != 0) {
+            return true;
+        }
+
+        if ((cells[1] == cells[4] && cells[1] == cells[7]) && cells[1] != 0) {
+            return true;
+        }
+
+        if ((cells[2] == cells[5] && cells[2] == cells[8]) && cells[2] != 0) {
+            return true;
+        }
+
+        // Diagonal combinations.
+        if ((cells[0] == cells[4] && cells[0] == cells[8]) && cells[0] != 0) {
+            return true;
+        }
+
+        if ((cells[2] == cells[4] && cells[2] == cells[6]) && cells[2] != 0) {
             return true;
         }
 
