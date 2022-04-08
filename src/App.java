@@ -30,8 +30,10 @@ public class App {
 
         if (hasWon == true) {
             System.out.println("Congratulazioni Giocatore " + playerID + ", hai vinto! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
+            db.addMatch(board.getMoves(), board.getOutcome());
         } else {
             System.out.println("Pareggio! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
+            db.addMatch(board.getMoves(), 'D');
         }
 
         input.nextLine();

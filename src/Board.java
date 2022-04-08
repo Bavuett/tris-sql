@@ -3,7 +3,7 @@ import java.util.*;
 public class Board {
     char[] cells = new char[9];
     char player;
-    String movesString;
+    String movesString = "";
 
     Scanner input = new Scanner(System.in);
     Database db = new Database();
@@ -60,60 +60,53 @@ public class Board {
     // Check the if there's a winning combination.
     // Not exactly the best solution to check for them, but it will work.
     public Boolean checkIfWon(int move) {
-        Boolean hasWon = false;
-        char outcome;
-
         // Horizontal combinations.
         if ((cells[0] == cells[1] && cells[0] == cells[2]) && cells[0] != 0) {
-            hasWon = true;
+            return true;
         }
 
         if ((cells[3] == cells[4] && cells[3] == cells[5]) && cells[3] != 0) {
-            hasWon = true;
+            return true;
         }
         
         if ((cells[6] == cells[7] && cells[6] == cells[8]) && cells[6] != 0) {
-            hasWon = true;
+            return true;
         }
 
         // Vertical combinations.
         if ((cells[0] == cells[3] && cells[0] == cells[6]) && cells[0] != 0) {
-            hasWon = true;
+            return true;
         }
 
         if ((cells[1] == cells[4] && cells[1] == cells[7]) && cells[1] != 0) {
-            hasWon = true;
+            return true;
         }
 
         if ((cells[2] == cells[5] && cells[2] == cells[8]) && cells[2] != 0) {
-            hasWon = true;
+            return true;
         }
 
         // Diagonal combinations.
         if ((cells[0] == cells[4] && cells[0] == cells[8]) && cells[0] != 0) {
-            hasWon = true;
-        }
-
-        if ((cells[2] == cells[4] && cells[2] == cells[6]) && cells[2] != 0) {
-            hasWon = true;
-        }
-
-        if (hasWon == true) {
-            if (player == 'X') {
-                outcome = 'L';
-            } else {
-                outcome = 'W';
-            }
-
-            db.addMatch(movesString, outcome);
             return true;
         }
 
-        if (move > 8 && hasWon != true) {
-            outcome = 'D';
-            db.addMatch(movesString, outcome);
+        if ((cells[2] == cells[4] && cells[2] == cells[6]) && cells[2] != 0) {
+            return true;
         }
 
         return false;
+    }
+
+    public String getMoves() {
+        return movesString;
+    }
+
+    public char getOutcome() {
+        if (player == 'X') {
+            return 'L';
+        } 
+        
+        return 'W';
     }
 }
