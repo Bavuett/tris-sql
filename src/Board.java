@@ -59,7 +59,7 @@ public class Board {
 
     // Check the if there's a winning combination.
     // Not exactly the best solution to check for them, but it will work.
-    public Boolean checkIfWon() {
+    public Boolean checkIfWon(int move) {
         Boolean hasWon = false;
         char outcome;
 
@@ -99,8 +99,19 @@ public class Board {
         }
 
         if (hasWon == true) {
-            db.addMatch(movesString, 'W');
+            if (player == 'X') {
+                outcome = 'L';
+            } else {
+                outcome = 'W';
+            }
+
+            db.addMatch(movesString, outcome);
             return true;
+        }
+
+        if (move > 8 && hasWon != true) {
+            outcome = 'D';
+            db.addMatch(movesString, outcome);
         }
 
         return false;

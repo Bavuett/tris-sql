@@ -23,7 +23,7 @@ public class App {
             }
 
             board.makeMove(playerID);
-            hasWon = board.checkIfWon();
+            hasWon = board.checkIfWon(move);
             
             move++;
         }
