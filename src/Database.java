@@ -29,7 +29,7 @@ public class Database {
         }
     
         try {
-            dbst = connection.createStatement();
+            dbst = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (Exception e) {
             System.out.println("Non riesco ad eseguire uno statement. \nMotivo: " + e + "\n");
         }
@@ -47,8 +47,8 @@ public class Database {
         }
     }
 
-    public void addMatch(String moves, char finalOutcome) {
-        String playerMoves = moves;
+    public void addMatch(String movesString, char finalOutcome) {
+        String playerMoves = movesString;
         char outcome = finalOutcome;
 
         try {
@@ -56,5 +56,23 @@ public class Database {
         } catch (Exception e) {
             System.out.println("Non riesco ad aggiungere la partita. \nMotivo: " + e + "\n");
         }
+    }
+
+    public int getNextMove(String movesString) {
+        String currentMoves = movesString;
+        String dbMoves = "";
+        int correctMoveIndex = currentMoves.length();
+
+        try {
+            result = dbst.executeQuery("SELECT * FROM esperienza WHERE mosse LIKE '" + currentMoves + "%' AND esito = 'W' OR esito = 'D' ORDER BY esito = 'W' DESC");
+            
+            if (result.first()) {
+                dbMoves = result.getString(2);
+            }
+        } catch (Exception e) {
+            System.out.println("Non riesco ad eseguire una query. \nMotivo: " + e + "\n");
+        }
+
+        return 0;
     }
 }

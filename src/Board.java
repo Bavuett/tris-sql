@@ -31,9 +31,10 @@ public class Board {
 
             movesString = movesString + index;
             this.printBoard();
+            db.getNextMove(movesString);
         } else {
             if (errorMade == false) {
-                System.out.println("Questo spazio è già occupato. Riprova!\n");
+                System.out.println("Questo spazio è occupato o non valido. Riprova!\n");
             }
 
             this.makeMove(player);

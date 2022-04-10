@@ -29,11 +29,11 @@ public class App {
         }
 
         if (hasWon == true) {
-            System.out.println("Congratulazioni Giocatore " + playerID + ", hai vinto! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
             db.addMatch(board.getMoves(), board.getOutcome());
+            System.out.println("Congratulazioni Giocatore " + playerID + ", hai vinto! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
         } else {
-            System.out.println("Pareggio! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
             db.addMatch(board.getMoves(), 'D');
+            System.out.println("Pareggio! \nRiavvia il gioco per ricominciare la sfida. Premi ENTER per chiudere.");
         }
 
         input.nextLine();
