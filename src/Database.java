@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.*;
 
 public class Database {
     static String url = "jdbc:mysql://localhost:3306/tris";
@@ -8,6 +9,10 @@ public class Database {
     static Connection connection = null;
     static Statement dbst;
     static ResultSet result;
+
+    Board board = new Board();
+
+    Scanner input = new Scanner(System.in);
 
     public void init() {
         System.out.println("Provo a connettermi al Database...\n");
@@ -61,7 +66,8 @@ public class Database {
     public int getNextMove(String movesString) {
         String currentMoves = movesString;
         String dbMoves = "";
-        int correctMoveIndex = currentMoves.length();
+        int moveIndex = currentMoves.length();
+        int correctMove = 0;
 
         try {
             result = dbst.executeQuery("SELECT * FROM esperienza WHERE mosse LIKE '" + currentMoves + "%' AND esito = 'W' OR esito = 'D' ORDER BY esito = 'W' DESC");
@@ -71,6 +77,21 @@ public class Database {
             }
         } catch (Exception e) {
             System.out.println("Non riesco ad eseguire una query. \nMotivo: " + e + "\n");
+        }
+
+        System.out.println("Mosse inserite al momento: " + currentMoves + ". Indice per trovare la mossa corretta: " + moveIndex + ".");
+        System.out.println("Mosse trovate dal database: " + dbMoves + ".\n");
+
+        if (dbMoves != "") {
+            try {
+                correctMove = Character.getNumericValue(dbMoves.charAt(moveIndex + 1));
+                return correctMove;
+            } catch (Exception e) {
+                System.out.println("Non riesco a trovare una mossa adatta. Motivo: " + e + "\n");
+            }
+        } else {
+            System.out.println("\nNon so come procedere. Potresti aiutarmi?\n");
+            board.makeMove('X', true);
         }
 
         return 0;

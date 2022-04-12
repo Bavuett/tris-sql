@@ -5,23 +5,31 @@ public class Board {
     char player;
     String movesString = "";
 
+    Boolean helpNeeded = false;
     Scanner input = new Scanner(System.in);
     Database db = new Database();
 
-    public void makeMove(char playerID) {
+    public void makeMove(char playerID, Boolean helpRequested) {
         player = playerID;
         int index = 1;
+        
         Boolean errorMade = false;
+        helpNeeded = helpRequested;
 
         System.out.print("Giocatore " + player + ", tocca a te! \nDove vuoi fare la tua mossa? [1 - 9] ");
 
-        try {
-            index = input.nextInt(); 
-            errorMade = false;
-        } catch (Exception e) {
-            System.out.println("Hai inserito un carattere non corretto. Riprova!");
-            errorMade = true;
-            input.nextLine();
+        if (player == 'O' || helpNeeded == true) {
+            try {
+                index = input.nextInt(); 
+                errorMade = false;
+            } catch (Exception e) {
+                System.out.println("Hai inserito un carattere non corretto. Riprova!");
+                errorMade = true;
+                input.nextLine();
+            }
+        } else {
+            index = db.getNextMove(movesString);
+            System.out.println("Indice: " + index + ".");
         }
 
         System.out.print("\n");
@@ -37,7 +45,7 @@ public class Board {
                 System.out.println("Questo spazio è occupato o non valido. Riprova!\n");
             }
 
-            this.makeMove(player);
+            this.makeMove(player, false);
         }
     }
 
