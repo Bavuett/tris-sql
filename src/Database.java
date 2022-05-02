@@ -35,6 +35,8 @@ public class Database {
         }
     }
 
+    // Print whole Database.
+    // Only for debugging purposes.
     public void printDB() {
         try {
             result = dbst.executeQuery("SELECT * FROM ESPERIENZA");
