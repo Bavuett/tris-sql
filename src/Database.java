@@ -9,7 +9,10 @@ public class Database {
     static Statement dbst;
     static ResultSet result;
 
+    static Board board;
+
     public void init() {
+        board = new Board();
         System.out.println("Provo a connettermi al Database...\n");
 
         try {
@@ -78,8 +81,8 @@ public class Database {
         }
 
         // Debug output.
-        System.out.println("Mosse inserite al momento: " + currentMoves + ". Indice per trovare la mossa corretta: " + moveIndex + ".");
-        System.out.println("Mosse trovate dal database: " + dbMoves + ".\n");
+        // System.out.println("Mosse inserite al momento: " + currentMoves + ". Indice per trovare la mossa corretta: " + moveIndex + ".");
+        // System.out.println("Mosse trovate dal database: " + dbMoves + ".\n");
 
         if (dbMoves != "") {
             try {
@@ -90,9 +93,11 @@ public class Database {
                 System.out.println("Non riesco a trovare una mossa adatta. Motivo: " + e + "\n");
             }
         } else {
-            System.out.println("\nNon so come procedere. Potresti aiutarmi?\n");
+
+            correctMove = board.randomMove();
+            return correctMove;
         }
 
-        return 0;
+        return correctMove;
     }
 }

@@ -7,6 +7,7 @@ public class Board {
 
     Scanner input = new Scanner(System.in);
     Database db = new Database();
+    Random rnd = new Random();
 
     public void makeMove(char playerID) {
         player = playerID;
@@ -30,7 +31,7 @@ public class Board {
         } else {
             index = db.getNextMove(movesString);
 
-            System.out.println("Indice: " + index + ".");
+            // System.out.println("Indice: " + index + ".");
         }
 
         System.out.print("\n");
@@ -50,9 +51,23 @@ public class Board {
         }
     }
 
+    public int randomMove() {
+        int chosenIndex = 0;
+        ArrayList availableIndexes = new ArrayList<>(0);
+
+        for (int i = 1; i < 9; i++) {
+            if (cells[i] == 0) {
+                availableIndexes.add(i);
+            }
+        }
+
+        chosenIndex = rnd.nextInt(availableIndexes.size());
+
+        return (int)availableIndexes.get(chosenIndex);
+    }
+
     public void printBoard() {
         for (int i = 0; i < cells.length; i++) {
-
             if (cells[i] == 0) {
                 System.out.print("[" + " " + "]" + " ");
             } else {
@@ -114,9 +129,9 @@ public class Board {
 
     public char getOutcome() {
         if (player == 'X') {
-            return 'L';
+            return 'W';
         } 
         
-        return 'W';
+        return 'L';
     }
 }
