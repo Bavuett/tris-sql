@@ -15,21 +15,30 @@ public class Board {
 
         System.out.print("Giocatore " + player + ", tocca a te! \nDove vuoi fare la tua mossa? [1 - 9] ");
 
-        try {
-            index = input.nextInt(); 
-            errorMade = false;
-        } catch (Exception e) {
-            System.out.println("Hai inserito un carattere non corretto. Riprova!");
-            errorMade = true;
-            input.nextLine();
+        // If player is human, ask move from keyboard.
+        // Else, ask the database.
+        if (player == 'O') {
+            try {
+                index = input.nextInt(); 
+                errorMade = false;
+            } catch (Exception e) {
+                System.out.println("Hai inserito un carattere non corretto. Riprova!");
+                
+                errorMade = true;
+                input.nextLine();
+            }
+        } else {
+            index = db.getNextMove(movesString);
+
+            System.out.println("Indice: " + index + ".");
         }
 
         System.out.print("\n");
 
         if (index > 0 && index < 10 && cells[index - 1] != 'X' && cells[index - 1] != 'O' && errorMade != true) {
             cells[index - 1] = playerID;
-
             movesString = movesString + index;
+            
             this.printBoard();
             db.getNextMove(movesString);
         } else {

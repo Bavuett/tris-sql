@@ -63,7 +63,9 @@ public class Database {
     public int getNextMove(String movesString) {
         String currentMoves = movesString;
         String dbMoves = "";
-        int correctMoveIndex = currentMoves.length();
+        
+        int moveIndex = currentMoves.length();
+        int correctMove = 0;
 
         try {
             result = dbst.executeQuery("SELECT * FROM esperienza WHERE mosse LIKE '" + currentMoves + "%' AND esito = 'W' OR esito = 'D' ORDER BY esito = 'W' DESC");
@@ -73,6 +75,22 @@ public class Database {
             }
         } catch (Exception e) {
             System.out.println("Non riesco ad eseguire una query. \nMotivo: " + e + "\n");
+        }
+
+        // Debug output.
+        System.out.println("Mosse inserite al momento: " + currentMoves + ". Indice per trovare la mossa corretta: " + moveIndex + ".");
+        System.out.println("Mosse trovate dal database: " + dbMoves + ".\n");
+
+        if (dbMoves != "") {
+            try {
+                correctMove = Character.getNumericValue(dbMoves.charAt(moveIndex + 1));
+
+                return correctMove;
+            } catch (Exception e) {
+                System.out.println("Non riesco a trovare una mossa adatta. Motivo: " + e + "\n");
+            }
+        } else {
+            System.out.println("\nNon so come procedere. Potresti aiutarmi?\n");
         }
 
         return 0;
