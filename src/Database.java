@@ -11,6 +11,8 @@ public class Database {
 
     static Board board;
 
+    // Initialize the Database.
+    // Connection, etc. is all done from here.
     public void init() {
         board = new Board();
         System.out.println("Provo a connettermi al Database...\n");
@@ -52,6 +54,7 @@ public class Database {
         }
     }
 
+    // Add new match to the Database.
     public void addMatch(String movesString, char finalOutcome) {
         String playerMoves = movesString;
         char outcome = finalOutcome;
@@ -63,6 +66,7 @@ public class Database {
         }
     }
 
+    // Query moves from the Database.
     public int getNextMove(String movesString) {
         String currentMoves = movesString;
         String dbMoves = "";
@@ -80,10 +84,8 @@ public class Database {
             System.out.println("Non riesco ad eseguire una query. \nMotivo: " + e + "\n");
         }
 
-        // Debug output.
-        // System.out.println("Mosse inserite al momento: " + currentMoves + ". Indice per trovare la mossa corretta: " + moveIndex + ".");
-        // System.out.println("Mosse trovate dal database: " + dbMoves + ".\n");
-
+        // If moves are found, return it. Else, generate new move from
+        // the board.
         if (dbMoves != "") {
             try {
                 correctMove = Character.getNumericValue(dbMoves.charAt(moveIndex + 1));
@@ -93,7 +95,6 @@ public class Database {
                 System.out.println("Non riesco a trovare una mossa adatta. Motivo: " + e + "\n");
             }
         } else {
-
             correctMove = board.randomMove();
             return correctMove;
         }

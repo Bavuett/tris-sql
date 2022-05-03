@@ -9,6 +9,7 @@ public class Board {
     Database db = new Database();
     Random rnd = new Random();
 
+    // This method is run everytime to make the move.
     public void makeMove(char playerID) {
         player = playerID;
         int index = 1;
@@ -30,12 +31,13 @@ public class Board {
             }
         } else {
             index = db.getNextMove(movesString);
-
-            // System.out.println("Indice: " + index + ".");
+            System.out.println(index);
         }
 
         System.out.print("\n");
 
+        // Check if the move is valid, and make the move.
+        // If it isn't, request input again.
         if (index > 0 && index < 10 && cells[index - 1] != 'X' && cells[index - 1] != 'O' && errorMade != true) {
             cells[index - 1] = playerID;
             movesString = movesString + index;
@@ -51,6 +53,7 @@ public class Board {
         }
     }
 
+    // Create new move if no move on the database is found.
     public int randomMove() {
         int chosenIndex = 0;
         ArrayList availableIndexes = new ArrayList<>(0);
@@ -66,6 +69,7 @@ public class Board {
         return (int)availableIndexes.get(chosenIndex);
     }
 
+    // Print the Board.
     public void printBoard() {
         for (int i = 0; i < cells.length; i++) {
             if (cells[i] == 0) {
