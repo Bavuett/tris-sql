@@ -58,7 +58,7 @@ public class Board {
         int chosenIndex = 0;
         ArrayList availableIndexes = new ArrayList<>(0);
 
-        for (int i = 1; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             if (cells[i] == 0) {
                 availableIndexes.add(i);
             }
