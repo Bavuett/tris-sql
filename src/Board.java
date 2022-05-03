@@ -55,11 +55,13 @@ public class Board {
 
     // Create new move if no move on the database is found.
     public int randomMove() {
+        ArrayList availableIndexes = null;
+        
         int chosenIndex = 0;
-        ArrayList availableIndexes = new ArrayList<>(0);
+        availableIndexes = new ArrayList<>(0);
 
         for (int i = 0; i < 9; i++) {
-            if (cells[i] == 0) {
+            if (cells[i] != 'X' || cells[i] != 'O') {
                 availableIndexes.add(i);
             }
         }
