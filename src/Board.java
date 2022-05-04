@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class Board {
-    char[] cells = new char[9];
+    public static char[] cells = new char[9];
+
     char player;
     String movesString = "";
 
@@ -54,18 +55,22 @@ public class Board {
 
     // Create new move if no move on the database is found.
     public int randomMove() {
-        ArrayList availableIndexes = null;
-        
         int chosenIndex = 0;
-        availableIndexes = new ArrayList<>(0);
+        ArrayList availableIndexes = new ArrayList<>(0);
 
         for (int i = 0; i < 9; i++) {
-            if (cells[i] != 'X' || cells[i] != 'O') {
+            if (cells[i] == 0) {
                 availableIndexes.add(i);
             }
         }
 
+        for (int i = 0; i < availableIndexes.size(); i++)  {
+            System.out.print(availableIndexes.get(i));
+        }
+
         chosenIndex = rnd.nextInt(availableIndexes.size());
+
+        System.out.print(chosenIndex + "\n");
 
         return (int)availableIndexes.get(chosenIndex);
     }

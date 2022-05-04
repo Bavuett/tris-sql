@@ -96,6 +96,7 @@ public class Database {
             }
         } else {
             correctMove = board.randomMove();
+
             return correctMove;
         }
 
