@@ -55,24 +55,24 @@ public class Board {
 
     // Create new move if no move on the database is found.
     public int randomMove() {
-        int chosenIndex = 0;
+        int chosenAvailableIndex = 0;
+        int generatedMove = 0;
+
         ArrayList availableIndexes = new ArrayList<>(0);
 
+        // Look for the indexes that are not full yet.
         for (int i = 0; i < 9; i++) {
             if (cells[i] == 0) {
                 availableIndexes.add(i);
             }
         }
 
-        for (int i = 0; i < availableIndexes.size(); i++)  {
-            System.out.print(availableIndexes.get(i));
-        }
+        // Choose a random index from the array and prepare
+        // the return value.
+        chosenAvailableIndex = rnd.nextInt(availableIndexes.size());
+        generatedMove = (int)availableIndexes.get(chosenAvailableIndex) + 1;
 
-        chosenIndex = rnd.nextInt(availableIndexes.size());
-
-        System.out.print(chosenIndex + "\n");
-
-        return (int)availableIndexes.get(chosenIndex) + 1;
+        return generatedMove;
     }
 
     // Print the Board.

@@ -84,8 +84,8 @@ public class Database {
             System.out.println("Non riesco ad eseguire una query. \nMotivo: " + e + "\n");
         }
 
-        // If moves are found, return it. Else, generate new move from
-        // the board.
+        // If moves are found, return it so the "AI" can make the move. 
+        // Else, ask the board for a new possible move.
         if (dbMoves != "") {
             try {
                 correctMove = Character.getNumericValue(dbMoves.charAt(moveIndex + 1));
