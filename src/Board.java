@@ -58,7 +58,7 @@ public class Board {
         int chosenAvailableIndex = 0;
         int generatedMove = 0;
 
-        ArrayList availableIndexes = new ArrayList<>(0);
+        ArrayList<Integer> availableIndexes = new ArrayList<Integer>(0);
 
         // Look for the indexes that are not full yet.
         for (int i = 0; i < 9; i++) {
