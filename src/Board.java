@@ -72,7 +72,7 @@ public class Board {
 
         System.out.print(chosenIndex + "\n");
 
-        return (int)availableIndexes.get(chosenIndex);
+        return (int)availableIndexes.get(chosenIndex) + 1;
     }
 
     // Print the Board.
