@@ -4,6 +4,9 @@ public class Board {
     public static char[] cells = new char[9];
 
     char player;
+
+    Boolean dbActive;
+
     String movesString = "";
 
     Scanner input = new Scanner(System.in);
@@ -20,7 +23,7 @@ public class Board {
 
         // If player is human, ask move from keyboard.
         // Else, ask the database.
-        if (player == 'O') {
+        if (player == 'O' || dbActive == false) {
             try {
                 index = input.nextInt(); 
                 errorMade = false;
@@ -143,5 +146,38 @@ public class Board {
         } 
         
         return 'L';
+    }
+
+    public void askOpponent() {
+        char dbChoice = 0;
+
+        System.out.print("Vuoi giocare contro il database? [Y/n] ");
+
+        try {
+            dbChoice = input.next().charAt(0);
+        } catch (Exception e) {
+            // Set choice as positive by default.
+            System.out.println("Carattere non riconosciuto. \nPrenderò per scontato che tu voglia giocare con il database.\n");
+            dbChoice = 'y';
+
+            input.nextLine();
+        }
+
+        switch (dbChoice) {
+            case 'y':
+            case 'Y':
+                System.out.println("Giocherai contro il Database.\n");
+                dbActive = true;
+                break;
+
+            case 'n':
+            case 'N':
+                System.out.println("Giocherai contro un avversario umano. \nLa partità sarà salvata dal database, in modo che possa utilizzarla per allenarsi.\n");
+                dbActive = false;
+                break;
+
+            default:
+                dbActive = true;
+        }
     }
 }
