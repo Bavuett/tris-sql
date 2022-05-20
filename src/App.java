@@ -7,7 +7,6 @@ public class App {
         char playerID = 'X';
 
         Boolean hasWon = false;
-        Boolean dbActive = false;
 
         Board board = new Board();
         Scanner input = new Scanner(System.in);

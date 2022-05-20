@@ -157,7 +157,6 @@ public class Board {
             dbChoice = input.next().charAt(0);
         } catch (Exception e) {
             // Set choice as positive by default.
-            System.out.println("Carattere non riconosciuto. \nPrenderò per scontato che tu voglia giocare con il database.\n");
             dbChoice = 'y';
 
             input.nextLine();
@@ -177,6 +176,7 @@ public class Board {
                 break;
 
             default:
+                System.out.println("Carattere non riconosciuto. \nPrenderò per scontato che tu voglia giocare con il database.\n");
                 dbActive = true;
         }
     }
